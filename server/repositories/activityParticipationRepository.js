@@ -19,3 +19,5 @@ class ActivityParticipationRepository {
         return result.changes > 0;
     }
 }
+
+module.exports = new ActivityParticipationRepository();
