@@ -12,13 +12,13 @@ app.use(cors({
 app.use(express.json()); // 解析 JSON 请求体
 
 // 挂载用户路由
-app.use('/api', userRoutes);
+app.use('/users', userRoutes);
 
 // 错误处理中间件
-app.use((err, req, res, next) => {
+/*app.use((err, req, res,next) => {
     console.error('全局错误:', err.stack);
     res.status(500).json({ error: '服务器内部错误' });
-});
+});*/
 
 // 启动服务器
 const PORT = process.env.PORT || 3001;

@@ -6,6 +6,10 @@ class UserService {
         return userRepository.findAll();
     }
 
+    async getUserById(id) {
+        return userRepository.findById(id);
+    }
+
     async createUser(userData) {
         // 验证逻辑
         if (!userData.name || !userData.email) {

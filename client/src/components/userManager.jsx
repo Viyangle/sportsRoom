@@ -8,13 +8,13 @@ function UserManager() {
     const [error, setError] = useState('');
 
     // 配置后端基础URL
-    const API_BASE_URL = `http://localhost:3001/api`;
+    const API_BASE_URL = `http://localhost:3001/users`;
 
     // 获取所有用户
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const response = await fetch(`${API_BASE_URL}/users`);
+            const response = await fetch(`${API_BASE_URL}`);
 
             if (!response.ok) {
                 throw new Error(`请求失败: ${response.status}`);
@@ -40,7 +40,7 @@ function UserManager() {
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_BASE_URL}/users`, {
+            const response = await fetch(`${API_BASE_URL}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ function UserManager() {
 
         setLoading(true);
         try {
-            const response = await fetch(`${API_BASE_URL}/users/${id}`, {
+            const response = await fetch(`${API_BASE_URL}/${id}`, {
                 method: 'DELETE'
             });
 
@@ -134,7 +134,7 @@ function UserManager() {
                 <table className="user-table">
                     <thead>
                     <tr>
-                        <th>ID</th>
+                        {/*<th>ID</th>*/}
                         <th>姓名</th>
                         <th>邮箱</th>
                         <th>操作</th>
@@ -143,7 +143,7 @@ function UserManager() {
                     <tbody>
                     {users.map(user => (
                         <tr key={user.id}>
-                            <td>{user.id}</td>
+                            {/*<td>{user.id}</td>*/}
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>

@@ -4,8 +4,8 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 
 // 用户路由配置
-router.get('/users', userController.getAllUsers);
-router.post('/users', userController.createUser);
-router.delete('/users/:id', userController.deleteUser);
+router.get('', userController.getAllUsers);
+router.post('', userController.createUser);
+router.delete('/:id', userController.deleteUser);
 
 module.exports = router;
