@@ -21,10 +21,10 @@ const activityParticipationController = {
         }
     },
 
-    async findAll(req, res){
+    async getAllActivityParticipation(req, res){
         try {
             const { user_id } = req.params;
-            const activityParticipation = await activityParticipationService.findAll(user_id);
+            const activityParticipation = await activityParticipationService.getAllActivityParticipation(user_id);
             res.json(activityParticipation);
         } catch (error) {
             res.status(500).json({ error: error.message });

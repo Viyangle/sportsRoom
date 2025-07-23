@@ -7,7 +7,7 @@ class ActivityParticipationService {
     async deleteActivityParticipation(activityId, userId) {
         return activityParticipationRepository.delete(activityId, userId);
     }
-    async findAll(user_id) {
+    async getAllActivityParticipation(user_id) {
         return activityParticipationRepository.findAll(user_id);
     }
 }
