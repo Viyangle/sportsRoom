@@ -13,7 +13,7 @@ const activityParticipationController = {
 
     async deleteActivityParticipation(req, res){
         try {
-            const { activityId, userId } = req.params;
+            const { userId, activityId } = req.params;
             await activityParticipationService.deleteActivityParticipation(activityId, userId);
             res.status(204).send();
         } catch (error) {
@@ -25,6 +25,16 @@ const activityParticipationController = {
         try {
             const { user_id } = req.params;
             const activityParticipation = await activityParticipationService.getAllActivityParticipation(user_id);
+            res.json(activityParticipation);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    },
+
+    async getActivityParticipationByActivityIdAndUserId(req, res){
+        try {
+            const { userId, activityId } = req.params;
+            const activityParticipation = await activityParticipationService.getActivityParticipationByActivityIdAndUserId(activityId, userId);
             res.json(activityParticipation);
         } catch (error) {
             res.status(500).json({ error: error.message });

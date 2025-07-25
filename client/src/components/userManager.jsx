@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 function UserManager() {
     const [users, setUsers] = useState([]);
-    const [newUser, setNewUser] = useState({ name: '', email: '' });
+    const [newUser, setNewUser] = useState({ name: '', email: '', password: ''});
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -33,7 +33,7 @@ function UserManager() {
 
     // 创建新用户
     const createUser = async () => {
-        if (!newUser.name || !newUser.email) {
+        if (!newUser.name || !newUser.email || !newUser.password) {
             setError('请填写完整信息');
             return;
         }
@@ -55,7 +55,7 @@ function UserManager() {
 
             const createdUser = await response.json();
             setUsers([...users, createdUser]);
-            setNewUser({ name: '', email: '' });
+            setNewUser({ name: '', email: '', password: ''});
             setError('');
         } catch (err) {
             setError(`创建失败: ${err.message}`);
@@ -120,6 +120,15 @@ function UserManager() {
                         placeholder="输入邮箱"
                     />
                 </div>
+                <div>
+                    <label>密码:</label>
+                    <input
+                        type="password"
+                        value={newUser.password}
+                        onChange={(e) => setNewUser({...newUser, password: e.target.value})}
+                        placeholder="输入密码"
+                    />
+                </div>
                 <button onClick={createUser} disabled={loading}>
                     {loading ? '提交中...' : '添加用户'}
                 </button>
@@ -137,7 +146,7 @@ function UserManager() {
                         {/*<th>ID</th>*/}
                         <th>姓名</th>
                         <th>邮箱</th>
-                        <th>操作</th>
+                        <th>密码</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -146,6 +155,7 @@ function UserManager() {
                             {/*<td>{user.id}</td>*/}
                             <td>{user.name}</td>
                             <td>{user.email}</td>
+                            <td>{user.password}</td>
                             <td>
                                 <button onClick={() => deleteUser(user.id)} disabled={loading}>
                                     删除

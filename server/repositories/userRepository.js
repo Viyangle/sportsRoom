@@ -14,10 +14,10 @@ class UserRepository {
         return db.get('SELECT * FROM users WHERE email = ?', [email]);
     }
     async create(userData) {
-        const { name, email } = userData;
+        const { name, email, password } = userData;
         const result = db.run(
-            'INSERT INTO users (name, email) VALUES (?, ?)',
-            [name, email]
+            'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
+            [name, email, password]
         );
 
         return this.findById(result.lastInsertRowid);

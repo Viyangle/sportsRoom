@@ -10,6 +10,9 @@ class ActivityParticipationService {
     async getAllActivityParticipation(user_id) {
         return activityParticipationRepository.findAll(user_id);
     }
+    async getActivityParticipationByActivityIdAndUserId(activityId, userId) {
+        return activityParticipationRepository.findByActivityIdAndUserId(activityId, userId);
+    }
 }
 
 module.exports = new ActivityParticipationService();
