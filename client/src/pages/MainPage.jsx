@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import HomeButton from '../components/HomeButton';
+import HomeButton from '../components/HomeButton.jsx';
 import UserButton from "../components/UserButton.jsx";
 import ActivityCard from "../components/ActivityCard.jsx";
 import UserManager from "../components/userManager.jsx";
