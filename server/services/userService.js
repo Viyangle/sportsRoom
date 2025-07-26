@@ -9,6 +9,10 @@ class UserService {
         return userRepository.findById(id);
     }
 
+    async getUserByEmail(email) {
+        return userRepository.findByEmail(email);
+    }
+
     async createUser(userData) {
         // 验证逻辑
         if (!userData.name || !userData.email) {

@@ -10,7 +10,8 @@ class UserRepository {
         return db.get('SELECT * FROM users WHERE id = ?', [id]);
     }
 
-    async findByEmail(email) {
+    async findByEmail(emailData) {
+        const { email } = emailData;
         return db.get('SELECT * FROM users WHERE email = ?', [email]);
     }
     async create(userData) {

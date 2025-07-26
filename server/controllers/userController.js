@@ -33,6 +33,19 @@ const userController = {
         }
     },
 
+    async getUserByEmail(req, res) {
+        try {
+            const newUser = await userService.getUserByEmail(req.body);
+            if (newUser) {
+                res.json(newUser);
+            } else {
+                res.status(404).json({ error: '用户不存在' });
+            }
+        } catch (error) {
+            res.status(500).json({ error: error.message || '服务器错误' });
+        }
+    },
+
     // 创建用户
     async createUser(req, res) {
         try {
