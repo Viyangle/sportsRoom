@@ -35,7 +35,7 @@ const userController = {
 
     async getUserByEmail(req, res) {
         try {
-            const newUser = await userService.getUserByEmail(req.body);
+            const newUser = await userService.getUserByEmail(req.params.email);
             if (newUser) {
                 res.json(newUser);
             } else {

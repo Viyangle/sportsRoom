@@ -4,7 +4,7 @@ import UserButton from "../components/UserButton.jsx";
 import ActivityCard from "../components/ActivityCard.jsx";
 import UserManager from "../components/userManager.jsx";
 function MainPage() {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(localStorage.getItem("user"));
     const [loading, setLoading] = useState(false);
     const [activities, setActivities] = useState([]);
     const [filteredActivities, setFilteredActivities] = useState([]);
@@ -56,9 +56,8 @@ function MainPage() {
     };
 
     useEffect(() => {
-        setUser(localStorage.getItem("user"));
         fetchActivities();
-    })
+    },[])
 
     return (
         <>
@@ -89,7 +88,6 @@ function MainPage() {
                 )}
             </div>
 
-            <UserManager/>
         </>
     )
 }

@@ -104,7 +104,7 @@ function ActivityPage() {
         setUser(localStorage.getItem("user"));
         fetchActivity();
         fetchComments();
-    });
+    },[]);
 
     return (
         <>
