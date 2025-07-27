@@ -52,19 +52,23 @@ function ActivityCard({activity, user}) {
         }
     }
 
-    useEffect(async () => {
+    const load = async () => {
         const response = await fetch(`${API_BASE_URL}/${uid}/${aid}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
         })
-        setIsParticipated(response.ok)
-    })
+        setIsParticipated(response.ok);
+    }
+
+    useEffect(() => {
+        load();
+    }, [])
 
     return (
         <div className="activity-card">
-            <h2>{activity.title}</h2>
+            <h2>{activity.name}</h2>
             <ActivityButton activity={activity} />
             <button onClick={handleClick}>{isParticipated ? '取消' : '加入'}</button>
         </div>

@@ -121,7 +121,7 @@ function ManagementPage() {
                         placeholder="添加活动详情"
                     />
                 </div>
-                <button onClick={createComment} disabled={loading}>
+                <button onClick={createActivity} disabled={loading}>
                     {loading ? '提交中...' : '添加活动'}
                 </button>
             </div>

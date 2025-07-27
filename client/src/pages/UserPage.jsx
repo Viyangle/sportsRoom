@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import HomeButton from "../components/HomeButton.jsx";
 import ManageButton from "../components/ManageButton.jsx";
 function UserPage() {
-    const [user, setUser] = useState(localStorage.getItem("user"));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -81,7 +81,7 @@ function UserPage() {
     }
 
 
-    if (user == null){
+    if (user === null){
         return(
             <>
                 <div>

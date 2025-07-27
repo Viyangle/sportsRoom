@@ -101,7 +101,7 @@ function ActivityPage() {
     };
 
     useEffect(() => {
-        setUser(localStorage.getItem("user"));
+        setUser(JSON.parse(localStorage.getItem("user")));
         fetchActivity();
         fetchComments();
     },[]);

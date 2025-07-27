@@ -9,7 +9,7 @@ class ActivityRepository {
     }
     async create(activityData) {
         const { name, description } = activityData;
-        const sql = `INSERT INTO activities (name, description) VALUES (?, ?)`;
+        const sql = `INSERT INTO activities (name, detail) VALUES (?, ?)`;
         const params = [name, description];
         const result = db.run(sql, params);
         return this.findById(result.lastInsertRowid);

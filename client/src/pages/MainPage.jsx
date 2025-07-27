@@ -4,7 +4,7 @@ import UserButton from "../components/UserButton.jsx";
 import ActivityCard from "../components/ActivityCard.jsx";
 import UserManager from "../components/userManager.jsx";
 function MainPage() {
-    const [user, setUser] = useState(localStorage.getItem("user"));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
     const [loading, setLoading] = useState(false);
     const [activities, setActivities] = useState([]);
     const [filteredActivities, setFilteredActivities] = useState([]);
@@ -38,7 +38,7 @@ function MainPage() {
         const term = e.target.value;
         setSearchTerm(term);
 
-        if (term.trim() === '') {
+        if (term === null || term === '') {
             // 搜索框为空时显示所有活动
             setFilteredActivities(activities);
         } else {
