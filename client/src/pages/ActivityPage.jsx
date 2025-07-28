@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import HomeButton from '../components/HomeButton.jsx';
 import UserButton from "../components/UserButton.jsx";
 
-function ActivityComment(comment){
-    let c = comment.text.split("$&");
+function ActivityComment({comment}){
+    const c = String(comment.text).split('$&');
     return (
         <div className="activity-comment">
-            <div className="activity-comment-author">{c[0]}</div>
-            <div className="activity-comment-text">{c[1]}</div>
+            <p className="activity-comment-author">{c[0]}</p>
+            <p className="activity-comment-text">{c[1]}</p>
         </div>
     );
 }
@@ -67,6 +67,11 @@ function ActivityPage() {
         let uid = user.id;
         let aid = activity.id;
         let c = user.name + "$&" + newComment;
+        const data = {
+            uid : uid,
+            aid : aid,
+            c : c
+        };
 
         if (newComment === null || newComment.trim() === '') {
             setError('请填写完整');
@@ -80,7 +85,7 @@ function ActivityPage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({uid, aid, c})
+                body: JSON.stringify(data)
             });
 
             if (!response.ok) {
@@ -114,7 +119,7 @@ function ActivityPage() {
             </div>
             <div>
                 <h2>{activity.name}</h2>
-                <p>{activity.description}</p>
+                <p>{activity.detail}</p>
             </div>
             <div>
                 {comments.map(comment => (

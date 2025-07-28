@@ -1,9 +1,12 @@
 const db = require('../database/db');
 
 class CommentRepository{
+    async findAll() {
+        return db.query('SELECT * FROM comments ORDER BY created_at DESC');
+    }
 
-    async findAll(activity_id) {
-        const sql = 'SELECT * FROM comments WHERE activity_id = ? ORDER BY joined_at DESC';
+    async findAllById(activity_id) {
+        const sql = 'SELECT * FROM comments WHERE activity_id = ? ORDER BY created_at DESC';
         return db.query(sql, [activity_id]);
     }
 
@@ -12,11 +15,11 @@ class CommentRepository{
         return db.get(sql, [id]);
     }
     async create(commentData) {
-        const { userId, activityId, content } = commentData;
-        const sql = 'INSERT INTO comments (user_id, activity_id, content) VALUES (?, ?, ?)';
-        const params = [userId, activityId, content];
+        const { uid, aid, c } = commentData;
+        const sql = 'INSERT INTO comments (user_id, activity_id, text) VALUES (?, ?, ?)';
+        const params = [uid, aid, c];
         const result = db.run(sql, params);
-        return result.lastInsertRowid;
+        return this.findById(result.lastInsertRowid);
     }
     async delete(id) {
         const sql = 'DELETE FROM comments WHERE id = ?';

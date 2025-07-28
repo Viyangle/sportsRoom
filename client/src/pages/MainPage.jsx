@@ -24,6 +24,7 @@ function MainPage() {
 
             const data = await response.json();
             setActivities(data);
+            setFilteredActivities(data);
             setError('');
         } catch (err) {
             setError(`获取活动失败: ${err.message}`);
@@ -38,13 +39,18 @@ function MainPage() {
         const term = e.target.value;
         setSearchTerm(term);
 
-        if (term === null || term === '') {
+
+    };
+
+    // 触发搜索逻辑
+    const handleSearch = () => {
+        if (searchTerm === null || searchTerm === '') {
             // 搜索框为空时显示所有活动
             setFilteredActivities(activities);
         } else {
             // 过滤活动
             const filtered = activities.filter(activity =>
-                activity.name.includes(term)
+                activity.name.includes(searchTerm)
             );
             setFilteredActivities(filtered);
         }
@@ -71,7 +77,7 @@ function MainPage() {
                         onChange={handleSearchChange}
                         className="search-input"
                     />
-                    <button type="submit" className="search-button">搜索</button>
+                    <button type="submit" className="search-button" onClick={handleSearch}>搜索</button>
                 </form>
                 <UserButton/>
             </div>

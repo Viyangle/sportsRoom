@@ -9,12 +9,16 @@ class CommentService {
         return CommentRepository.delete(id);
     }
 
+    async getAllComments() {
+        return CommentRepository.findAll();
+    }
+
     async getCommentById(id) {
         return CommentRepository.findById(id);
     }
 
-    async getAllComments(activity_id) {
-        return CommentRepository.findAll(activity_id);
+    async getAllCommentsById(activity_id) {
+        return CommentRepository.findAllById(activity_id);
     }
 }
 

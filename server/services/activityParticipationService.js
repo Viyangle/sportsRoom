@@ -7,8 +7,12 @@ class ActivityParticipationService {
     async deleteActivityParticipation(activityId, userId) {
         return activityParticipationRepository.delete(activityId, userId);
     }
-    async getAllActivityParticipation(user_id) {
-        return activityParticipationRepository.findAll(user_id);
+
+    async getAllActivityParticipation() {
+        return activityParticipationRepository.findAll();
+    }
+    async getAllActivityParticipationById(user_id) {
+        return activityParticipationRepository.findById(user_id);
     }
     async getActivityParticipationByActivityIdAndUserId(activityId, userId) {
         return activityParticipationRepository.findByActivityIdAndUserId(activityId, userId);

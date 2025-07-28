@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-function ActivityButton(activity) {
+function ActivityButton({activity}) {
     const navigate = useNavigate();
 
     const handleClick = () => {

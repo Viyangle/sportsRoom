@@ -3,6 +3,7 @@ import ActivityButton from "./ActivityButton.jsx";
 import { useNavigate } from "react-router-dom";
 function ActivityCard({activity, user}) {
     const [isParticipated, setIsParticipated] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate= useNavigate();
 
     const aid = activity.id;
@@ -11,9 +12,11 @@ function ActivityCard({activity, user}) {
     const API_BASE_URL = `http://localhost:3001/activityParticipation`;
     // 加入活动
     const handleClick = async () => {
+        setIsLoading( true);
         if (user === null) {
             navigate('/user');
             alert("请先登录");
+            setIsLoading( false)
         } else {
             if (isParticipated) {
                 try {
@@ -27,17 +30,25 @@ function ActivityCard({activity, user}) {
                     }
 
                     setIsParticipated(false);
+                    alert('已取消参与');
                 } catch (error) {
                     console.error('Error:', error);
+                } finally {
+                    setIsLoading( false);
                 }
             } else {
                 try {
+                    const data = {
+                        activityId : aid,
+                        userId : uid
+                    }
+
                     const response = await fetch(`${API_BASE_URL}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({aid, uid})
+                        body: JSON.stringify(data)
                     });
 
                     if (!response.ok) {
@@ -45,8 +56,11 @@ function ActivityCard({activity, user}) {
                     }
 
                     setIsParticipated( true);
+                    alert('已成功加入活动');
                 } catch (err) {
                     console.error(err);
+                } finally {
+                    setIsLoading( false);
                 }
             }
         }
@@ -59,7 +73,7 @@ function ActivityCard({activity, user}) {
                 'Content-Type': 'application/json',
             },
         })
-        setIsParticipated(response.ok);
+        setIsParticipated(await response.json() !== null);
     }
 
     useEffect(() => {
@@ -70,7 +84,7 @@ function ActivityCard({activity, user}) {
         <div className="activity-card">
             <h2>{activity.name}</h2>
             <ActivityButton activity={activity} />
-            <button onClick={handleClick}>{isParticipated ? '取消' : '加入'}</button>
+            <button onClick={handleClick} disabled={isLoading}>{isParticipated ? '取消' : '加入'}</button>
         </div>
     );
 }

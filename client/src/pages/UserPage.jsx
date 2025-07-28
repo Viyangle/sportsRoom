@@ -80,6 +80,10 @@ function UserPage() {
         }
     }
 
+    const exit = () => {
+        localStorage.removeItem('user');
+        setUser(null);
+    }
 
     if (user === null){
         return(
@@ -134,6 +138,9 @@ function UserPage() {
                 </div>
                 <div>
                     {(user.email === 'admin@163.com') && <ManageButton/>}
+                </div>
+                <div>
+                    <button onClick={exit}>退出登录</button>
                 </div>
             </>
         )

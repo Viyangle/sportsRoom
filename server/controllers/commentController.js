@@ -14,7 +14,7 @@ const commentController = {
 
   async deleteComment(req, res) {
       try {
-        const { id } = req.params;
+        const id = parseInt(req.params.id);
         await commentService.deleteComment(id);
         res.status(204).send();
       } catch (error) {
@@ -22,10 +22,19 @@ const commentController = {
       }
   },
 
-  async getAllComments(req, res) {
+    async getAllComments(req, res) {
       try {
-          const { id } = req.params;
-        const comments = await commentService.getAllComments(id);
+        const comments = await commentService.getAllComments();
+        res.json(comments);
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
+  },
+
+  async getAllCommentsById(req, res) {
+      try {
+          const id = parseInt(req.params.id);
+        const comments = await commentService.getAllCommentsById(id);
         res.json(comments);
       } catch (error) {
         res.status(500).json({ error: error.message });
@@ -34,7 +43,7 @@ const commentController = {
 
   async getCommentById(req, res) {
       try {
-        const { aid, cid } = req.params;
+        const cid  = parseInt(req.params.cid);
         const comment = await commentService.getCommentById(cid);
         res.json(comment);
       } catch (error) {
