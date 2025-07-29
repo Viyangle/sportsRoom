@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 function UserButton() {
     const navigate = useNavigate();
 
@@ -8,9 +9,9 @@ function UserButton() {
     };
 
     return (
-        <div className="user-button">
-            <button onClick={handleClick}>User</button>
-        </div>
+        <Button variant="outline-primary" className="me-2" onClick={handleClick}>
+            User
+        </Button>
     );
 }
 

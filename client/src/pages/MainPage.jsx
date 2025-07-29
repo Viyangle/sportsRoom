@@ -3,6 +3,7 @@ import HomeButton from '../components/HomeButton.jsx';
 import UserButton from "../components/UserButton.jsx";
 import ActivityCard from "../components/ActivityCard.jsx";
 import UserManager from "../components/userManager.jsx";
+import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 function MainPage() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
     const [loading, setLoading] = useState(false);
@@ -38,8 +39,6 @@ function MainPage() {
     const handleSearchChange = (e) => {
         const term = e.target.value;
         setSearchTerm(term);
-
-
     };
 
     // 触发搜索逻辑
@@ -66,36 +65,40 @@ function MainPage() {
     },[])
 
     return (
-        <>
-            <div>
-                <HomeButton/>
-                <form onSubmit={handleSearchSubmit} className="search-form">
-                    <input
-                        type="text"
-                        placeholder="搜索活动名称..."
-                        value={searchTerm}
-                        onChange={handleSearchChange}
-                        className="search-input"
-                    />
-                    <button type="submit" className="search-button" onClick={handleSearch}>搜索</button>
-                </form>
-                <UserButton/>
+        <Container>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <HomeButton />
+                <Form onSubmit={handleSearchSubmit} className="flex-grow-1 mx-3">
+                    <InputGroup>
+                        <Form.Control
+                            type="text"
+                            placeholder="搜索活动名称..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                        />
+                        <Button variant="primary" onClick={handleSearch}>
+                            搜索
+                        </Button>
+                    </InputGroup>
+                </Form>
+                <UserButton />
             </div>
 
-            <div>
-                {filteredActivities.length > 0 ? (
-                    filteredActivities.map(activity => (
-                        <ActivityCard key={activity.id} activity={activity} user={user} />
-                    ))
+            <Row>
+                {filteredActivities.length === 0 ? (
+                    <Col md={12} className="text-center">
+                        <p className="fs-4">无对应活动</p>
+                    </Col>
                 ) : (
-                    <div className="no-results">
-                        <p>没有找到符合条件的活动</p>
-                    </div>
+                    filteredActivities.map((activity) => (
+                        <Col key={activity.id} md={6} lg={4} className="mb-4">
+                            <ActivityCard activity={activity} user={user} />
+                        </Col>
+                    ))
                 )}
-            </div>
-
-        </>
-    )
+            </Row>
+        </Container>
+    );
 }
 
 export default MainPage;

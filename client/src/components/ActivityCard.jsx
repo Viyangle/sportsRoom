@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ActivityButton from "./ActivityButton.jsx";
 import { useNavigate } from "react-router-dom";
+import { Card, Button } from 'react-bootstrap';
 function ActivityCard({activity, user}) {
     const [isParticipated, setIsParticipated] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -81,11 +82,21 @@ function ActivityCard({activity, user}) {
     }, [])
 
     return (
-        <div className="activity-card">
-            <h2>{activity.name}</h2>
-            <ActivityButton activity={activity} />
-            <button onClick={handleClick} disabled={isLoading}>{isParticipated ? '取消' : '加入'}</button>
-        </div>
+        <Card className="mb-3">
+            <Card.Body>
+                <Card.Title>{activity.name}</Card.Title>
+                <div className="d-flex justify-content-between">
+                    <ActivityButton activity={activity} />
+                    <Button
+                        variant={isParticipated ? "outline-danger" : "success"}
+                        onClick={handleClick}
+                        disabled={isLoading}
+                    >
+                        {isParticipated ? '取消' : '加入'}
+                    </Button>
+                </div>
+            </Card.Body>
+        </Card>
     );
 }
 

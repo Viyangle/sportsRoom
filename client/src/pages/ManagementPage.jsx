@@ -1,8 +1,9 @@
 import React, {useState, useEffect, act} from 'react';
 import HomeButton from "../components/HomeButton.jsx";
 import UserButton from "../components/UserButton.jsx";
+import { Container, Card, Form, Button, ListGroup, Spinner } from 'react-bootstrap';
 function ManagementPage() {
-    const [newActivity, setNewActivity] = useState({name: '', description: ''});
+    const [newActivity, setNewActivity] = useState({name: '', detail: ''});
     const [loading, setLoading] = useState(false);
     const [activities, setActivities] = useState([]);
     const [error, setError] = useState('');
@@ -30,7 +31,7 @@ function ManagementPage() {
     };
     
     const createActivity = async () => {
-        if (!newActivity.name || !newActivity.description) {
+        if (!newActivity.name || !newActivity.detail) {
             setError('请填写完整信息');
             return;
         }
@@ -52,7 +53,7 @@ function ManagementPage() {
 
             const createdActivity = await response.json();
             setActivities([...activities, createdActivity]);
-            setNewActivity({ name: '', description: ''});
+            setNewActivity({ name: '', detail: ''});
             setError('');
         } catch (err) {
             setError(`创建失败: ${err.message}`);
@@ -90,42 +91,65 @@ function ManagementPage() {
     },[]);
 
     return (
-        <>
-            <div>
+        <Container>
+            <div className="d-flex justify-content-between mb-4">
                 <HomeButton />
                 <UserButton />
             </div>
-            <div>
-                {activities.map(activity => (
-                    <div key={activity.id}>
-                        <p>{activity.name}</p>
-                        <p>{activity.description}</p>
-                        <button onClick={() => deleteActivity(activity.id)}>删除</button>
-                    </div>
-                ))}
-            </div>
-            <div>
-                <div>
-                    <input
-                        type="text"
-                        value={newActivity.name}
-                        onChange={(e) => setNewActivity({...newActivity, name: e.target.value})}
-                        placeholder="添加活动名"
-                    />
-                </div>
-                <div>
-                    <input
-                        type="text"
-                        value={newActivity.description}
-                        onChange={(e) => setNewActivity({...newActivity, description: e.target.value})}
-                        placeholder="添加活动详情"
-                    />
-                </div>
-                <button onClick={createActivity} disabled={loading}>
-                    {loading ? '提交中...' : '添加活动'}
-                </button>
-            </div>
-        </>
+
+            <Card className="mb-4">
+                <Card.Body>
+                    <Card.Title>活动列表</Card.Title>
+                    <ListGroup>
+                        {activities.map(activity => (
+                            <ListGroup.Item key={activity.id} className="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6>{activity.name}</h6>
+                                    <p className="mb-0 text-muted">{activity.detail}</p>
+                                </div>
+                                <Button
+                                    variant="outline-danger"
+                                    size="sm"
+                                    onClick={() => deleteActivity(activity.id)}
+                                >
+                                    删除
+                                </Button>
+                            </ListGroup.Item>
+                        ))}
+                    </ListGroup>
+                </Card.Body>
+            </Card>
+
+            <Card>
+                <Card.Body>
+                    <Card.Title>添加新活动</Card.Title>
+                    <Form.Group className="mb-3">
+                        <Form.Control
+                            type="text"
+                            value={newActivity.name}
+                            onChange={(e) => setNewActivity({...newActivity, name: e.target.value})}
+                            placeholder="活动名称"
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Control
+                            as="textarea"
+                            rows={3}
+                            value={newActivity.detail}
+                            onChange={(e) => setNewActivity({...newActivity, detail: e.target.value})}
+                            placeholder="活动详情"
+                        />
+                    </Form.Group>
+                    <Button
+                        variant="success"
+                        onClick={createActivity}
+                        disabled={loading}
+                    >
+                        {loading ? <Spinner animation="border" size="sm" /> : '添加活动'}
+                    </Button>
+                </Card.Body>
+            </Card>
+        </Container>
     );
 }
 

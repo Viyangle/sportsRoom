@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import HomeButton from '../components/HomeButton.jsx';
 import UserButton from "../components/UserButton.jsx";
-
+import { Container, Card, Form, Button, Spinner } from 'react-bootstrap';
 function ActivityComment({comment}){
     const c = String(comment.text).split('$&');
     return (
@@ -112,34 +112,49 @@ function ActivityPage() {
     },[]);
 
     return (
-        <>
-            <div>
-                <HomeButton/>
-                <UserButton/>
+        <Container>
+            <div className="d-flex justify-content-between mb-4">
+                <HomeButton />
+                <UserButton />
             </div>
-            <div>
-                <h2>{activity.name}</h2>
-                <p>{activity.detail}</p>
-            </div>
-            <div>
+
+            <Card className="mb-4">
+                <Card.Body>
+                    <Card.Title>{activity.name}</Card.Title>
+                    <Card.Text>{activity.detail}</Card.Text>
+                </Card.Body>
+            </Card>
+
+            <div className="mb-4">
+                <h4>评论</h4>
                 {comments.map(comment => (
-                    <ActivityComment key={comment.id} comment={comment}/>
+                    <Card key={comment.id} className="mb-2">
+                        <Card.Body>
+                            <Card.Subtitle className="mb-1 text-muted">{(String(comment.text).split('$&'))[0]}</Card.Subtitle>
+                            <Card.Text>{(String(comment.text).split('$&'))[1]}</Card.Text>
+                        </Card.Body>
+                    </Card>
                 ))}
             </div>
-            <div>
-                <div>
-                    <input
-                        type="text"
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="留下你的评论吧"
-                    />
-                </div>
-                <button onClick={createComment} disabled={loading}>
-                    {loading ? '提交中...' : '添加评论'}
-                </button>
-            </div>
-        </>
+
+            <Form.Group className="mb-3">
+                <Form.Control
+                    as="textarea"
+                    rows={3}
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    placeholder="留下你的评论吧"
+                />
+            </Form.Group>
+
+            <Button
+                variant="primary"
+                onClick={createComment}
+                disabled={loading}
+            >
+                {loading ? <Spinner animation="border" size="sm" /> : '添加评论'}
+            </Button>
+        </Container>
     );
 }
 

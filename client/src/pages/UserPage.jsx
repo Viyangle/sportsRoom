@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HomeButton from "../components/HomeButton.jsx";
 import ManageButton from "../components/ManageButton.jsx";
+import { Container, Card, Form, Button, Alert, Spinner } from 'react-bootstrap';
 function UserPage() {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
     const [name, setName] = useState('');
@@ -86,64 +87,74 @@ function UserPage() {
     }
 
     if (user === null){
-        return(
-            <>
-                <div>
-                    <HomeButton/>
-                </div>
+        return (
+            <Container>
+                <HomeButton />
+                <Card className="mt-4">
+                    <Card.Body>
+                        <Card.Title>登录/注册</Card.Title>
+                        {error && <Alert variant="danger">{error}</Alert>}
 
-                <div>
-                    <div>
-                        <label>用户名</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            placeholder="请填写用户名"
-                        />
-                    </div>
-                    <div>
-                        <label>邮箱</label>
-                        <input
-                            type="text"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="请填写邮箱"
-                        />
-                    </div>
-                    <div>
-                        <label>密码</label>
-                        <input
-                            type="text"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="请填写密码"
-                        />
-                    </div>
-                    <button onClick={login} disabled={loading}>
-                        {loading ? '加载中...' : '登录'}
-                    </button>
-                </div>
-            </>
-        )
+                        <Form.Group className="mb-3">
+                            <Form.Label column={true}>用户名</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                placeholder="请填写用户名"
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label column={true}>邮箱</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="请填写邮箱"
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label column={true}>密码</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="请填写密码"
+                            />
+                        </Form.Group>
+
+                        <Button
+                            variant="primary"
+                            onClick={login}
+                            disabled={loading}
+                            className="w-100"
+                        >
+                            {loading ? <Spinner animation="border" size="sm" /> : '登录'}
+                        </Button>
+                    </Card.Body>
+                </Card>
+            </Container>
+        );
     }else {
         return (
-            <>
-                <div>
-                    <HomeButton/>
-                </div>
-                <div>
-                    <p>name: {user.name}</p>
-                    <p>email: {user.email}</p>
-                </div>
-                <div>
-                    {(user.email === 'admin@163.com') && <ManageButton/>}
-                </div>
-                <div>
-                    <button onClick={exit}>退出登录</button>
-                </div>
-            </>
-        )
+            <Container>
+                <HomeButton />
+                <Card className="mt-4">
+                    <Card.Body>
+                        <Card.Title>用户信息</Card.Title>
+                        <Card.Text>name: {user.name}</Card.Text>
+                        <Card.Text>email: {user.email}</Card.Text>
+
+                        <div className="d-flex gap-2">
+                            {(user.email === 'admin@163.com') && <ManageButton />}
+                            <Button variant="outline-danger" onClick={exit}>退出登录</Button>
+                        </div>
+                    </Card.Body>
+                </Card>
+            </Container>
+        );
     }
 }
 

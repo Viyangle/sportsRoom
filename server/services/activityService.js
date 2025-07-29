@@ -2,7 +2,7 @@ const activityRepository = require('../repositories/activityRepository');
 
 class ActivityService {
   async createActivity(activityData) {
-    if (!activityData.name || !activityData.description) {
+    if (!activityData.name || !activityData.detail) {
       throw new Error('活动名和详情不能为空');
     }
     return await activityRepository.create(activityData);

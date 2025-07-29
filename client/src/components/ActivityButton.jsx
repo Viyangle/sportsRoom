@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 function ActivityButton({activity}) {
     const navigate = useNavigate();
 
@@ -8,9 +9,9 @@ function ActivityButton({activity}) {
     };
 
     return (
-        <div className="activity-button">
-            <button onClick={handleClick}>详情</button>
-        </div>
+            <Button variant="outline-primary" className="me-2" onClick={handleClick}>
+                详情
+            </Button>
     );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 function HomeButton() {
     const navigate = useNavigate();
 
@@ -8,9 +9,9 @@ function HomeButton() {
     };
 
     return (
-        <div className="home-button">
-            <button onClick={handleClick}>SportsRoom</button>
-        </div>
+        <Button variant="outline-primary" className="me-2" onClick={handleClick}>
+            SportsRoom
+        </Button>
     );
 }
 

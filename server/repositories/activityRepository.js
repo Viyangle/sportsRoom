@@ -8,9 +8,9 @@ class ActivityRepository {
         return db.get('SELECT * FROM activities WHERE id = ?', [id]);
     }
     async create(activityData) {
-        const { name, description } = activityData;
+        const { name, detail } = activityData;
         const sql = `INSERT INTO activities (name, detail) VALUES (?, ?)`;
-        const params = [name, description];
+        const params = [name, detail];
         const result = db.run(sql, params);
         return this.findById(result.lastInsertRowid);
     }
