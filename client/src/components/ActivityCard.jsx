@@ -8,7 +8,8 @@ function ActivityCard({activity, user}) {
     const navigate= useNavigate();
 
     const aid = activity.id;
-    const uid = user.id;
+
+
 
     const API_BASE_URL = `http://localhost:3001/activityParticipation`;
     // 加入活动
@@ -19,6 +20,7 @@ function ActivityCard({activity, user}) {
             alert("请先登录");
             setIsLoading( false)
         } else {
+            const uid = user.id;
             if (isParticipated) {
                 try {
                     const response = await fetch(`${API_BASE_URL}/${uid}/${aid}`,{
@@ -68,13 +70,19 @@ function ActivityCard({activity, user}) {
     }
 
     const load = async () => {
-        const response = await fetch(`${API_BASE_URL}/${uid}/${aid}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        setIsParticipated(await response.json() !== null);
+        if (user !== null){
+            const uid = user.id;
+            const response = await fetch(`${API_BASE_URL}/${uid}/${aid}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            setIsParticipated(await response.json() !== null);
+        } else {
+            setIsParticipated(false);
+        }
+
     }
 
     useEffect(() => {
