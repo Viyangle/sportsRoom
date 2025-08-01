@@ -1,3 +1,4 @@
+// 活动参与数据库操作
 const db = require('../database/db');
 
 class ActivityParticipationRepository {

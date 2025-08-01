@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
+// 跳转到活动管理页面
 function ManageButton() {
     const navigate = useNavigate();
 

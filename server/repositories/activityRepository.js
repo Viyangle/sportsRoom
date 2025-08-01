@@ -1,3 +1,5 @@
+// 活动数据库操作
+const Database = require('../database/db');
 const db = require('../database/db');
 
 class ActivityRepository {

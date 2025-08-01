@@ -12,6 +12,7 @@ function UserPage() {
 
     const API_BASE_URL = `http://localhost:3001`;
 
+    // 创建用户
     const register = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/users/`, {
@@ -40,6 +41,7 @@ function UserPage() {
         }
     };
 
+    // 登录
     const login = async () => {
         if (!name || !email || !password) {
             setError('请填写完整信息');
@@ -81,6 +83,7 @@ function UserPage() {
         }
     }
 
+    // 退出登录
     const exit = () => {
         localStorage.removeItem('user');
         setUser(null);

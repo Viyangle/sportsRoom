@@ -23,6 +23,7 @@ function ActivityPage() {
 
     const API_BASE_URL = `http://localhost:3001`;
 
+    // 获取活动信息
     const fetchActivity = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/activities/${id}`,{
@@ -43,6 +44,7 @@ function ActivityPage() {
         }
     }
 
+    // 获取评论信息
     const fetchComments = async () => {
         try {
             const response = await fetch(`${API_BASE_URL}/comments/${id}`,{
@@ -63,6 +65,7 @@ function ActivityPage() {
         }
     };
 
+    // 创建评论
     const createComment = async () => {
         let uid = user.id;
         let aid = activity.id;

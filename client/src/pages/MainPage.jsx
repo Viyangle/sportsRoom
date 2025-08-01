@@ -14,6 +14,7 @@ function MainPage() {
 
     const API_BASE_URL = `http://localhost:3001/activities`;
 
+    // 获取所有活动
     const fetchActivities = async () => {
         setLoading(true);
         try {

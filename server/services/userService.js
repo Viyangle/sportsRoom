@@ -1,18 +1,22 @@
 const userRepository = require('../repositories/userRepository');
 
 class UserService {
+    // 获取所有用户
     async getAllUsers() {
         return userRepository.findAll();
     }
 
+    // 获取单个用户
     async getUserById(id) {
         return userRepository.findById(id);
     }
 
+    // 获取用户通过邮箱
     async getUserByEmail(email) {
         return userRepository.findByEmail(email);
     }
 
+    // 创建用户
     async createUser(userData) {
         // 验证逻辑
         if (!userData.name || !userData.email) {
@@ -32,6 +36,7 @@ class UserService {
         return userRepository.create(userData);
     }
 
+    // 删除用户
     async deleteUser(id) {
         const user = await userRepository.findById(id);
         if (!user) {

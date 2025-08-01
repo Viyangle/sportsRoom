@@ -10,6 +10,7 @@ function ManagementPage() {
 
     const API_BASE_URL = `http://localhost:3001/activities`;
 
+    // 获取所有活动
     const fetchActivities = async () => {
         setLoading(true);
         try {
@@ -30,6 +31,7 @@ function ManagementPage() {
         }
     };
     
+    // 创建活动
     const createActivity = async () => {
         if (!newActivity.name || !newActivity.detail) {
             setError('请填写完整信息');
@@ -63,6 +65,7 @@ function ManagementPage() {
         }
     };
     
+    // 删除活动
     const deleteActivity = async (id) => {
         if (!window.confirm('确定要删除该活动吗？')) return;
 

@@ -1,4 +1,4 @@
-// database/db.js
+// 数据库操作类
 const Database = require('better-sqlite3');
 
 class DB {
